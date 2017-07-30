@@ -1,0 +1,33 @@
+%html
+  %head
+    %script{:src => "https://code.highcharts.com/stock/highstock.js"}
+    %script{:src => "https://code.highcharts.com/modules/exporting.js"}
+  %body
+    #container-total{:style => "min-width: 310px; height: 400px; margin: 0 auto"}
+    #container{:style => "min-width: 310px; height: 400px; margin: 0 auto"}
+
+    :javascript
+      legend = {
+        enabled: true,
+        backgroundColor: 'white',
+        borderColor: 'black',
+        borderWidth: 1,
+        shadow: true
+      }
+
+      Highcharts.stockChart('container-total', {
+         chart: {
+             type: 'line'
+         },
+         //legend: legend,
+         //plotOptions: {
+         //    line: {
+         //        dataLabels: {
+         //            enabled: true
+         //        },
+         //        //enableMouseTracking: false
+         //    }
+         //},
+        series: #{@data.to_json}
+      });
+
