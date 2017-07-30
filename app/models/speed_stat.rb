@@ -9,6 +9,7 @@ class SpeedStat < ActiveRecord::Base
     self.upload = json["upload"]
     self.download = json["download"]
     self.url = json["share"]
+    self.result = json
     self.save!
     puts self.results
   end
