@@ -68,7 +68,7 @@ class SpeedStat < ActiveRecord::Base
   end
 
   def self.ftp
-    puts "Uploading to #{ENV["FTP_SERVER"]}"
+    #puts "Uploading to #{ENV["FTP_SERVER"]}"
     filecontent = File.binread('./output.html')
     Net::FTP.open(ENV["FTP_SERVER"]) do |ftp|
       ############ UPLOAD NORMAL FILE ############
