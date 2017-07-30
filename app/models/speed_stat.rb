@@ -1,3 +1,4 @@
+require 'net/ftp'
 class SpeedStat < ActiveRecord::Base
 
   def run
@@ -63,5 +64,19 @@ class SpeedStat < ActiveRecord::Base
 
     File.open('output.html', 'wb') {|a| a.write(output) }
     return "output.html"
+  end
+
+  def self.ftp
+    puts "Uploading to #{ENV["FTP_SERVER"]}"
+    filecontent = File.binread('./output.html')
+    Net::FTP.open(ENV["FTP_SERVER"]) do |ftp|
+      ############ UPLOAD NORMAL FILE ############
+      ftp.login(ENV["FTP_USERNAME"], ENV["FTP_PASSWORD"])
+      ftp.passive = true
+      ftp.binary = true
+      ftp.chdir(ENV["FTP_PATH"] || "/")
+      ftp.storbinary("STOR index.html", StringIO.new(filecontent), 1024)
+      ftp.close
+    end
   end
 end
